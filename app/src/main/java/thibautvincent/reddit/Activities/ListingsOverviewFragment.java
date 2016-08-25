@@ -1,18 +1,17 @@
 package thibautvincent.reddit.Activities;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,23 +21,18 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import thibautvincent.reddit.API.RedditAPI;
 import thibautvincent.reddit.Adapters.ListingsAdapter;
-import thibautvincent.reddit.Adapters.SubredditAdapter;
 import thibautvincent.reddit.Model.Listings.ListingData;
 import thibautvincent.reddit.Model.Listings.ListingWrapper;
 import thibautvincent.reddit.Model.Listings.ListingsData;
 import thibautvincent.reddit.Model.Listings.ListingsWrapper;
-import thibautvincent.reddit.Model.Subreddit.SubredditData;
-import thibautvincent.reddit.Model.Subreddit.SubredditWrapper;
-import thibautvincent.reddit.Model.Subreddit.SubredditsData;
-import thibautvincent.reddit.Model.Subreddit.SubredditsWrapper;
 import thibautvincent.reddit.R;
+import thibautvincent.reddit.Services.RedditService;
 
 public class ListingsOverviewFragment extends Fragment {
 

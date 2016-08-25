@@ -1,8 +1,8 @@
 package thibautvincent.reddit.Activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import thibautvincent.reddit.API.RedditAPI;
 import thibautvincent.reddit.Adapters.SubredditAdapter;
 import thibautvincent.reddit.Model.Subreddit.SubredditData;
-import thibautvincent.reddit.Model.Subreddit.SubredditWrapper;
-import thibautvincent.reddit.Model.Subreddit.SubredditsData;
-import thibautvincent.reddit.Model.Subreddit.SubredditsWrapper;
 import thibautvincent.reddit.R;
+import thibautvincent.reddit.Services.RedditService;
 
 public class SubredditOverviewFragment extends Fragment {
 
