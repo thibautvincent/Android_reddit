@@ -16,4 +16,7 @@ public interface RedditAPI {
 
     @GET("{section}/{subreddit}.json")
     Call<ListingsWrapper> getListingsOfSubreddit(@Path("section") String section, @Path("subreddit") String subreddit, @Query("limit") int limit);
+
+    @GET("{section}/{subreddit}.json")
+    Call<ListingsWrapper> getExtraListingsOfSubreddit(@Path("section") String section, @Path("subreddit") String subreddit, @Query("limit") int limit, @Query("after") String after);
 }
