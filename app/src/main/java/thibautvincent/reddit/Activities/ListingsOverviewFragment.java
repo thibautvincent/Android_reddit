@@ -98,23 +98,10 @@ public class ListingsOverviewFragment extends Fragment {
         SharedPreferences sp = getActivity().getSharedPreferences("MY_PREFS", Activity.MODE_PRIVATE);
         int max = sp.getInt("POSTS_LOAD", 20);
 
-        Retrofit retrofitAdapter = new Retrofit
-                .Builder()
-                .baseUrl("http://www.reddit.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RedditAPI api = retrofitAdapter.create(RedditAPI.class);
-        Bundle args = getArguments();
-        Call<ListingsWrapper> call = api.getListingsOfSubreddit("r", selectedSubreddit.replace("/r/", ""), max);
+        redditService = RedditService.getInstance();
 
         try {
-            Response<ListingsWrapper> data= call.execute();
-            final ListingsData listingsData = data.body().getData();
-
-            for (ListingWrapper listingWrapper : listingsData.getChildren()) {
-                ListingData listingData = listingWrapper.getData();
-                listingsAdapter.add(listingData);
-            }
+            listingsAdapter.addAll(redditService.getListingsOfSubreddit("r", selectedSubreddit.replace("/r/", ""), max));
 
             listingsList.setAdapter(listingsAdapter);
             listingsAdapter.notifyDataSetChanged();
@@ -130,7 +117,6 @@ public class ListingsOverviewFragment extends Fragment {
                     intent.putExtra("TITLE", listingData.getTitle());
                     intent.putExtra("IMAGE", listingData.getThumbnail());
                     intent.putExtra("URL", listingData.getUrl());
-
 
                     startActivity(intent);
                 }
