@@ -37,6 +37,8 @@ import thibautvincent.reddit.Services.RedditService;
 public class ListingsOverviewFragment extends Fragment {
 
     private ListingsAdapter listingsAdapter;
+    private RedditService redditService;
+
     private String selectedSubreddit;
     @Bind(R.id.listings_overview)
     public ListView listingsList;
