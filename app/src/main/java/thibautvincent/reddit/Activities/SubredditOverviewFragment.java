@@ -21,6 +21,7 @@ import thibautvincent.reddit.Services.RedditService;
 public class SubredditOverviewFragment extends Fragment {
 
     private SubredditAdapter subredditAdapter;
+    private RedditService redditService;
 
     public ListView subredditsList;
 
@@ -38,7 +39,6 @@ public class SubredditOverviewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
     }
 
     @Override
@@ -56,23 +56,9 @@ public class SubredditOverviewFragment extends Fragment {
     }
 
     public void fetchData() {
-        Retrofit retrofitAdapter = new Retrofit
-                .Builder()
-                .baseUrl("http://www.reddit.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RedditAPI api = retrofitAdapter.create(RedditAPI.class);
-
-
-        Call<SubredditsWrapper> call = api.getSubreddits();
         try {
-            Response<SubredditsWrapper> data= call.execute();
-            SubredditsData subredditsData = data.body().getData();
-
-            for (SubredditWrapper subredditWrapper : subredditsData.getChildren()) {
-                SubredditData subredditData = subredditWrapper.getData();
-                subredditAdapter.add(subredditData);
-            }
+            this.redditService = RedditService.getInstance();
+            subredditAdapter.addAll(this.redditService.getPopularSubreddits());
 
             subredditsList.setAdapter(subredditAdapter);
             subredditAdapter.notifyDataSetChanged();
@@ -90,7 +76,7 @@ public class SubredditOverviewFragment extends Fragment {
                 }
             });
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
