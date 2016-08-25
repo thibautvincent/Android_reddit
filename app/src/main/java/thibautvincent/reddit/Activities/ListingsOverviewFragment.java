@@ -122,8 +122,27 @@ public class ListingsOverviewFragment extends Fragment {
                 }
             });
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            listingsList.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
+                }
+
+                public void onScroll(AbsListView view, int firstVisibleItem,
+                                     int visibleItemCount, int totalItemCount) {
+
+                    if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
+                        SharedPreferences sp = getActivity().getSharedPreferences("MY_PREFS", Activity.MODE_PRIVATE);
+                        int max = sp.getInt("POSTS_LOAD", 20);
+
+                        listingsAdapter.addAll(redditService.getExtraListingsOfSubreddit("r", selectedSubreddit.replace("/r/", ""), max));
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "We weren't able to load new posts.", Toast.LENGTH_SHORT).show();
         }
     }
 
